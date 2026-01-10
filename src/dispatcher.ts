@@ -58,38 +58,32 @@ export function dispatchTaskBackground(
     return taskId;
   }
 
-  // Create log file stream
-  const logStream = fs.createWriteStream(logFile, { flags: 'a' });
-
-  // Write task info header
+  // Write task info header to log file
   const header =
     `Task ID: ${taskId}\n` +
     `Project: ${project.name}\n` +
     `Task: ${task}\n` +
     `Started: ${new Date().toISOString()}\n` +
     `${'='.repeat(60)}\n\n`;
-  logStream.write(header);
+  fs.writeFileSync(logFile, header, { flag: 'a' });
 
-  // Execute Claude in background with output capture
-  // Set environment variables to enable output in non-interactive mode
+  // Open log file for appending (get file descriptor)
+  const logFd = fs.openSync(logFile, 'a');
+
+  // Execute Claude in background with output redirected to log file
+  // Using 'ignore' for stdin and file descriptor for stdout/stderr
   const claude = spawn(claudePath, args, {
     cwd: resolvedPath,
-    stdio: ['pipe', 'pipe', 'pipe'],
+    stdio: ['pipe', logFd, logFd],
     shell: true,
     detached: true,
     env: {
       ...process.env,
-      // Force color output even in non-TTY
       FORCE_COLOR: '1',
-      // Tell Claude it's in a capable terminal
       TERM: 'xterm-256color',
-      // Ensure output is not buffered
       PYTHONUNBUFFERED: '1',
     },
   });
-
-  // Immediately unref the child process so parent can exit
-  claude.unref();
 
   // Send the task as input
   if (claude.stdin) {
@@ -97,17 +91,8 @@ export function dispatchTaskBackground(
     claude.stdin.end();
   }
 
-  // Capture all output to log file without blocking the parent process
-  if (claude.stdout) {
-    claude.stdout.on('data', (data) => {
-      logStream.write(data);
-    });
-  }
-  if (claude.stderr) {
-    claude.stderr.on('data', (data) => {
-      logStream.write(data);
-    });
-  }
+  // Unref the process so parent doesn't wait
+  claude.unref();
 
   // Create background task record
   const backgroundTask: BackgroundTask = {
@@ -129,8 +114,12 @@ export function dispatchTaskBackground(
       `Ended: ${new Date().toISOString()}\n` +
       `Exit code: ${code}\n`;
 
-    logStream.write(footer);
-    logStream.end();
+    try {
+      fs.writeSync(logFd, footer);
+      fs.closeSync(logFd);
+    } catch (err) {
+      // File descriptor might already be closed
+    }
 
     updateTask(taskId, {
       status: code === 0 ? 'completed' : 'failed',
@@ -141,8 +130,13 @@ export function dispatchTaskBackground(
 
   claude.on('error', (error) => {
     const errorMsg = `\nError: ${error.message}\n`;
-    logStream.write(errorMsg);
-    logStream.end();
+
+    try {
+      fs.writeSync(logFd, errorMsg);
+      fs.closeSync(logFd);
+    } catch (err) {
+      // File descriptor might already be closed
+    }
 
     updateTask(taskId, {
       status: 'failed',
