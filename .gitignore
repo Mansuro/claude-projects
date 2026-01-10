@@ -7,7 +7,6 @@ yarn.lock
 dist/
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -17,6 +16,7 @@ dist/
 .DS_Store
 Thumbs.db
 
+temp_auto_push.bat
 # Logs
 *.log
 npm-debug.log*
@@ -28,10 +28,11 @@ coverage/
 .nyc_output/
 
 # Environment
-.env
 .env.local
 .env.*.local
 
 # Temporary files
 *.tmp
 *.temp
+temp_interactive_push.bat
+.gitignore
