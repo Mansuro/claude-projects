@@ -4,11 +4,18 @@
 [![npm downloads](https://img.shields.io/npm/dm/claude-projects.svg)](https://www.npmjs.com/package/claude-projects)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Multi-project manager for Claude Code** - Dispatch tasks across multiple projects from a central location.
+**Multi-project manager for Claude Code** - Dispatch tasks across multiple projects with background execution and batch processing.
 
 ```bash
 npm install -g claude-projects
 ```
+
+## Key Features
+
+- **Background Execution** - Run tasks in the background and check on them later
+- **Batch Processing** - Execute multiple tasks across different projects from a YAML file
+- **Central Config** - Manage all your projects in one place
+- **Task Management** - Track, monitor, and control running tasks
 
 ## Problem
 
@@ -22,12 +29,30 @@ This gets tedious when managing multiple projects simultaneously.
 
 ## Solution
 
-`claude-projects` lets you manage all your projects from a central config file and dispatch tasks to any project from anywhere:
+Run tasks across multiple projects, in the background, or batch process them all at once:
 
 ```bash
+# Single task
 ccode my-app "implement dark mode"
-ccode another-project "run tests and fix failures"
-ccode web-app "refactor the authentication module"
+
+# Background execution - work on multiple projects simultaneously
+ccode my-app "implement dark mode" --background
+ccode another-project "run tests and fix failures" --background
+ccode web-app "refactor authentication" --background
+
+# Check status of all background tasks
+ccode status
+
+# Batch process - run multiple tasks from a YAML file
+ccode batch tasks.yaml
+```
+
+**Example batch file (tasks.yaml):**
+```yaml
+my-app: "implement dark mode"
+another-project: "run tests and fix failures"
+web-app: "refactor the authentication module"
+mobile-app: "update dependencies"
 ```
 
 ## Installation
@@ -102,18 +127,40 @@ settings:
 ccode list
 ```
 
-### 4. Dispatch Tasks
+### 4. Run Tasks
 
 ```bash
-# Basic usage
+# Run a task (foreground)
 ccode my-app "add user authentication"
 
-# Dry run (see what would execute)
-ccode my-app "refactor components" --dry-run
+# Run tasks in background - work on multiple projects at once
+ccode my-app "implement dark mode" --background
+ccode another-project "run tests" --background
 
-# Verbose output
-ccode my-app "run tests" --verbose
+# Check background task status
+ccode status
+
+# View logs for a specific task
+ccode logs task-1234567890-abc123
 ```
+
+### 5. Batch Processing (Multiple Tasks at Once)
+
+Create a `tasks.yaml` file:
+
+```yaml
+my-app: "implement dark mode"
+another-project: "run tests and fix failures"
+web-app: "update dependencies"
+```
+
+Run all tasks:
+
+```bash
+ccode batch tasks.yaml
+```
+
+All tasks run in background by default. Check progress with `ccode status`.
 
 ## Features
 
