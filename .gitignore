@@ -7,7 +7,6 @@ yarn.lock
 dist/
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
