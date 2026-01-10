@@ -21,7 +21,7 @@ const program = new Command();
 program
   .name('ccode')
   .description('Multi-project manager for Claude Code')
-  .version('0.2.3');
+  .version('0.2.4');
 
 /**
  * Initialize config file

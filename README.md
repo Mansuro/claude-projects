@@ -13,6 +13,7 @@ npm install -g claude-projects
 ## Key Features
 
 - **Background Execution** - Run tasks in the background and check on them later
+- **Real-time Log Streaming** - Watch Claude's output live as tasks execute
 - **Batch Processing** - Execute multiple tasks across different projects from a YAML file
 - **Central Config** - Manage all your projects in one place
 - **Task Management** - Track, monitor, and control running tasks
@@ -142,6 +143,9 @@ ccode status
 
 # View logs for a specific task
 ccode logs task-1234567890-abc123
+
+# Watch logs in real-time as Claude works (like tail -f)
+ccode logs task-1234567890-abc123 --follow
 ```
 
 ### 5. Batch Processing (Multiple Tasks at Once)
@@ -164,15 +168,16 @@ All tasks run in background by default. Check progress with `ccode status`.
 
 ## Features
 
-### ✅ Current Features (v0.2.0)
+### ✅ Current Features (v0.2.4)
 
 - **Project Registry**: Manage multiple projects in one YAML config
 - **Quick Project Add**: Add projects with a simple command (like `npm install`)
 - **Task Dispatch**: Run Claude commands in any project from anywhere
 - **Background Execution**: Run tasks in the background with `--background` flag
+- **Real-time Log Streaming**: Watch Claude's output live with `--follow` flag
 - **Batch Processing**: Execute multiple tasks from a YAML file
 - **Task Management**: Track, monitor, and control background tasks
-- **Task Logs**: View detailed logs for each background task
+- **Detailed Logging**: Full Claude output captured to log files
 - **Path Resolution**: Handles `~` and relative paths automatically
 - **Dry Run Mode**: Preview commands before execution
 - **Project Descriptions**: Document what each project does
