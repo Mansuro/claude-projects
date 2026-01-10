@@ -17,9 +17,9 @@ This gets tedious when managing multiple projects simultaneously.
 `claude-projects` lets you manage all your projects from a central config file and dispatch tasks to any project from anywhere:
 
 ```bash
-ccode skillsdoor "implement dark mode"
+ccode my-app "implement dark mode"
 ccode another-project "run tests and fix failures"
-ccode my-app "refactor the authentication module"
+ccode web-app "refactor the authentication module"
 ```
 
 ## Installation
@@ -55,13 +55,13 @@ Open `~/.claude-projects.yaml` and add your projects:
 
 ```yaml
 projects:
-  skillsdoor:
-    path: ~/workspace/skillsdoor
-    description: Career management platform
-
   my-app:
     path: ~/workspace/my-app
     description: My awesome application
+
+  another-project:
+    path: ~/workspace/another-project
+    description: Another project
     defaultArgs:
       - --continue  # Optional: always continue last session
 
@@ -80,7 +80,7 @@ ccode list
 
 ```bash
 # Basic usage
-ccode skillsdoor "add user authentication"
+ccode my-app "add user authentication"
 
 # Dry run (see what would execute)
 ccode my-app "refactor components" --dry-run
@@ -171,17 +171,17 @@ Execute a task in a specific project
 
 ```bash
 # Basic (foreground)
-ccode skillsdoor "list all TypeScript files"
+ccode my-app "list all TypeScript files"
 
 # Background execution
-ccode skillsdoor "implement dark mode" --background
-ccode skillsdoor "implement dark mode" -b  # Short form
+ccode my-app "implement dark mode" --background
+ccode my-app "implement dark mode" -b  # Short form
 
 # With dry-run
-ccode skillsdoor "implement feature X" --dry-run
+ccode my-app "implement feature X" --dry-run
 
 # With verbose output
-ccode skillsdoor "run tests" --verbose
+ccode my-app "run tests" --verbose
 ```
 
 **Options:**
