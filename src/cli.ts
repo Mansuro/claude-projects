@@ -367,15 +367,22 @@ program
       console.log();
 
       if (options.follow) {
-        // Use tail -f for following
+        // Use tail -f with -n +1 to show entire file from beginning and then follow
         const { spawn } = require('child_process');
-        const tail = spawn('tail', ['-f', task.logFile], {
+        const tail = spawn('tail', ['-f', '-n', '+1', task.logFile], {
           stdio: 'inherit',
         });
 
         tail.on('error', (error: Error) => {
           console.error(chalk.red('\nError:'), error.message);
           process.exit(1);
+        });
+
+        // Handle Ctrl+C gracefully
+        process.on('SIGINT', () => {
+          tail.kill();
+          console.log(chalk.gray('\n\nStopped following logs'));
+          process.exit(0);
         });
       } else {
         // Just output the file
