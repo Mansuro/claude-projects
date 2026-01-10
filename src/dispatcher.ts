@@ -88,18 +88,25 @@ export function dispatchTaskBackground(
     },
   });
 
+  // Immediately unref the child process so parent can exit
+  claude.unref();
+
   // Send the task as input
   if (claude.stdin) {
     claude.stdin.write(task + '\n');
     claude.stdin.end();
   }
 
-  // Capture all output to log file
+  // Capture all output to log file without blocking the parent process
   if (claude.stdout) {
-    claude.stdout.pipe(logStream, { end: false });
+    claude.stdout.on('data', (data) => {
+      logStream.write(data);
+    });
   }
   if (claude.stderr) {
-    claude.stderr.pipe(logStream, { end: false });
+    claude.stderr.on('data', (data) => {
+      logStream.write(data);
+    });
   }
 
   // Create background task record
@@ -142,9 +149,6 @@ export function dispatchTaskBackground(
       endedAt: new Date().toISOString(),
     });
   });
-
-  // Unref the process so the parent doesn't wait for it
-  claude.unref();
 
   return taskId;
 }
