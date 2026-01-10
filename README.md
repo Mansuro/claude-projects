@@ -1,6 +1,14 @@
 # Claude Projects
 
+[![npm version](https://badge.fury.io/js/claude-projects.svg)](https://www.npmjs.com/package/claude-projects)
+[![npm downloads](https://img.shields.io/npm/dm/claude-projects.svg)](https://www.npmjs.com/package/claude-projects)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **Multi-project manager for Claude Code** - Dispatch tasks across multiple projects from a central location.
+
+```bash
+npm install -g claude-projects
+```
 
 ## Problem
 
@@ -24,13 +32,17 @@ ccode web-app "refactor the authentication module"
 
 ## Installation
 
-### From npm (Recommended)
+Install globally via npm:
 
 ```bash
 npm install -g claude-projects
 ```
 
-Or using npx (no installation required):
+That's it! The `ccode` command is now available globally.
+
+### Using npx (no installation)
+
+You can also use npx to run commands without installing:
 
 ```bash
 npx claude-projects init
@@ -38,7 +50,10 @@ npx claude-projects list
 npx claude-projects my-app "run tests"
 ```
 
-### From Source
+### Build from Source (for contributors)
+
+<details>
+<summary>Click to expand source installation instructions</summary>
 
 ```bash
 git clone https://github.com/Mansuro/claude-projects.git
@@ -47,6 +62,8 @@ npm install
 npm run build
 npm link
 ```
+
+</details>
 
 ## Quick Start
 
