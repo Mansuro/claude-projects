@@ -1,0 +1,24 @@
+# Source files
+src/
+tsconfig.json
+
+# Development
+.git/
+.gitignore
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+test/
+*.test.ts
+*.test.js
+
+# Misc
+.DS_Store
+example-tasks.yaml

@@ -24,19 +24,28 @@ ccode web-app "refactor the authentication module"
 
 ## Installation
 
-### From Source (Current)
-
-```bash
-cd ~/workspace/claude-projects
-npm install
-npm run build
-npm link
-```
-
-### From npm (Coming Soon)
+### From npm (Recommended)
 
 ```bash
 npm install -g claude-projects
+```
+
+Or using npx (no installation required):
+
+```bash
+npx claude-projects init
+npx claude-projects list
+npx claude-projects my-app "run tests"
+```
+
+### From Source
+
+```bash
+git clone https://github.com/Mansuro/claude-projects.git
+cd claude-projects
+npm install
+npm run build
+npm link
 ```
 
 ## Quick Start

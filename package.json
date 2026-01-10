@@ -6,21 +6,39 @@
   "bin": {
     "ccode": "dist/cli.js"
   },
+  "files": [
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/cli.js",
     "prepare": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mansuro/claude-projects.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mansuro/claude-projects/issues"
+  },
+  "homepage": "https://github.com/Mansuro/claude-projects#readme",
   "keywords": [
     "claude",
     "claude-code",
     "cli",
     "project-manager",
-    "multi-project"
+    "multi-project",
+    "task-automation",
+    "background-tasks"
   ],
-  "author": "",
+  "author": "Mansuro",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "type": "commonjs",
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
