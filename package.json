@@ -1,0 +1,35 @@
+{
+  "name": "claude-projects",
+  "version": "0.1.0",
+  "description": "Multi-project manager for Claude Code - dispatch tasks across multiple projects",
+  "main": "dist/index.js",
+  "bin": {
+    "ccode": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/cli.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "cli",
+    "project-manager",
+    "multi-project"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.0.3",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "yaml": "^2.8.2"
+  }
+}
