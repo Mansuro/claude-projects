@@ -1,0 +1,13 @@
+# Example batch tasks file for Claude Projects
+# Usage: ccode batch example-tasks.yaml
+
+# Basic syntax: project-name: "task description"
+skillsdoor: "list all TypeScript files in the src directory"
+
+# You can have multi-line tasks using YAML's pipe syntax
+another-project: |
+  Run the test suite and fix any failing tests.
+  Make sure to update the README with the changes.
+
+# Simple one-liner tasks
+my-app: "check the git status and show recent commits"

@@ -1,7 +1,7 @@
 {
   "name": "claude-projects",
-  "version": "0.1.0",
-  "description": "Multi-project manager for Claude Code - dispatch tasks across multiple projects",
+  "version": "0.2.0",
+  "description": "Multi-project manager for Claude Code - dispatch tasks across multiple projects with background execution",
   "main": "dist/index.js",
   "bin": {
     "ccode": "dist/cli.js"

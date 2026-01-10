@@ -26,3 +26,32 @@ export interface Config {
     timeout?: number;
   };
 }
+
+/**
+ * Background task status
+ */
+export type TaskStatus = 'running' | 'completed' | 'failed' | 'killed';
+
+/**
+ * Background task information
+ */
+export interface BackgroundTask {
+  /** Unique task ID */
+  id: string;
+  /** Project name */
+  project: string;
+  /** Task description */
+  task: string;
+  /** Process ID */
+  pid: number;
+  /** Task status */
+  status: TaskStatus;
+  /** Start time */
+  startedAt: string;
+  /** End time (if completed) */
+  endedAt?: string;
+  /** Log file path */
+  logFile: string;
+  /** Exit code (if completed) */
+  exitCode?: number;
+}

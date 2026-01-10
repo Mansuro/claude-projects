@@ -100,6 +100,70 @@ export function resolveProjectPath(projectPath: string): string {
 }
 
 /**
+ * Add a project to the config file
+ */
+export function addProject(
+  projectName: string,
+  projectPath: string,
+  description?: string
+): void {
+  const configPath = getConfigPath();
+
+  if (!configExists()) {
+    throw new Error(
+      `Config file not found at ${configPath}\n` +
+      `Run 'ccode init' to create a config file first.`
+    );
+  }
+
+  const config = loadConfig();
+
+  if (config.projects[projectName]) {
+    throw new Error(
+      `Project "${projectName}" already exists in config.\n` +
+      `Use a different name or manually edit the config file.`
+    );
+  }
+
+  // Add the new project
+  config.projects[projectName] = {
+    path: projectPath,
+    ...(description && { description }),
+  };
+
+  // Write back to file
+  const yamlContent = yaml.stringify(config);
+  fs.writeFileSync(configPath, yamlContent, 'utf-8');
+}
+
+/**
+ * Remove a project from the config file
+ */
+export function removeProject(projectName: string): void {
+  const configPath = getConfigPath();
+
+  if (!configExists()) {
+    throw new Error(
+      `Config file not found at ${configPath}\n` +
+      `Run 'ccode init' to create a config file first.`
+    );
+  }
+
+  const config = loadConfig();
+
+  if (!config.projects[projectName]) {
+    throw new Error(`Project "${projectName}" not found in config.`);
+  }
+
+  // Remove the project
+  delete config.projects[projectName];
+
+  // Write back to file
+  const yamlContent = yaml.stringify(config);
+  fs.writeFileSync(configPath, yamlContent, 'utf-8');
+}
+
+/**
  * Create a sample config file
  */
 export function createSampleConfig(): void {
